@@ -37,13 +37,13 @@ spec:
       affinity:
 {{ toYaml .Values.metrics.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.metrics.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.metrics.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.metrics.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.metrics.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.metrics.tolerations) }}
       tolerations:
-{{ toYaml .Values.metrics.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.metrics.schedulerName }}
       schedulerName: "{{ .Values.metrics.schedulerName }}"

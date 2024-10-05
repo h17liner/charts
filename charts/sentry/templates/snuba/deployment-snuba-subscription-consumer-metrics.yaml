@@ -45,13 +45,13 @@ spec:
       {{- if .Values.snuba.subscriptionConsumerMetrics.affinity }}
 {{ toYaml .Values.snuba.subscriptionConsumerMetrics.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.subscriptionConsumerMetrics.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.snuba.subscriptionConsumerMetrics.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.snuba.subscriptionConsumerMetrics.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.subscriptionConsumerMetrics.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.snuba.subscriptionConsumerMetrics.tolerations) }}
       tolerations:
-{{ toYaml .Values.snuba.subscriptionConsumerMetrics.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.snuba.subscriptionConsumerMetrics.topologySpreadConstraints }}
       topologySpreadConstraints:

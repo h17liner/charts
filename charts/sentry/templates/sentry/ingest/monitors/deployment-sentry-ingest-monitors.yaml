@@ -48,13 +48,13 @@ spec:
       {{- if .Values.sentry.ingestMonitors.affinity }}
 {{ toYaml .Values.sentry.ingestMonitors.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.ingestMonitors.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.sentry.ingestMonitors.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.sentry.ingestMonitors.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.ingestMonitors.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.sentry.ingestMonitors.tolerations) }}
       tolerations:
-{{ toYaml .Values.sentry.ingestMonitors.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.sentry.ingestMonitors.topologySpreadConstraints }}
       topologySpreadConstraints:

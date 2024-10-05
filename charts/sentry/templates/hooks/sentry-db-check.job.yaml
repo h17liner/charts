@@ -47,13 +47,13 @@ spec:
       affinity:
 {{ toYaml .Values.hooks.dbCheck.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.hooks.dbCheck.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.hooks.dbCheck.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.hooks.dbCheck.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.hooks.dbCheck.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.hooks.dbCheck.tolerations) }}
       tolerations:
-{{ toYaml .Values.hooks.dbCheck.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       restartPolicy: Never
       {{- if .Values.hooks.dbCheck.image.imagePullSecrets }}

@@ -45,13 +45,13 @@ spec:
       {{- if .Values.snuba.genericMetricsCountersConsumer.affinity }}
 {{ toYaml .Values.snuba.genericMetricsCountersConsumer.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.genericMetricsCountersConsumer.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.snuba.genericMetricsCountersConsumer.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.snuba.genericMetricsCountersConsumer.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.genericMetricsCountersConsumer.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.snuba.genericMetricsCountersConsumer.tolerations) }}
       tolerations:
-{{ toYaml .Values.snuba.genericMetricsCountersConsumer.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.snuba.genericMetricsCountersConsumer.topologySpreadConstraints }}
       topologySpreadConstraints:

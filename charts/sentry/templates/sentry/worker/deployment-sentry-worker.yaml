@@ -39,13 +39,13 @@ spec:
       {{- if .Values.sentry.worker.affinity }}
 {{ toYaml .Values.sentry.worker.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.worker.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.sentry.worker.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.sentry.worker.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.worker.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.sentry.worker.tolerations) }}
       tolerations:
-{{ toYaml .Values.sentry.worker.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.sentry.worker.topologySpreadConstraints }}
       topologySpreadConstraints:

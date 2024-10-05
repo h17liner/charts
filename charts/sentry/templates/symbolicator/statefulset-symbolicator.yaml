@@ -39,13 +39,13 @@ spec:
       affinity:
 {{ toYaml .Values.symbolicator.api.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.symbolicator.api.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.symbolicator.api.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.symbolicator.api.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.symbolicator.api.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.symbolicator.api.tolerations) }}
       tolerations:
-{{ toYaml .Values.symbolicator.api.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.symbolicator.api.topologySpreadConstraints }}
       topologySpreadConstraints:

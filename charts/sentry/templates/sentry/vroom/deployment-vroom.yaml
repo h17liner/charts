@@ -45,13 +45,13 @@ spec:
       {{- if .Values.vroom.affinity }}
 {{ toYaml .Values.vroom.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.vroom.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.vroom.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.vroom.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.vroom.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.vroom.tolerations) }}
       tolerations:
-{{ toYaml .Values.vroom.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.vroom.topologySpreadConstraints }}
       topologySpreadConstraints:

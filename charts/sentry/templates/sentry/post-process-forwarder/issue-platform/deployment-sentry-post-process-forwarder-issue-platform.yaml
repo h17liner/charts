@@ -46,13 +46,13 @@ spec:
       {{- if .Values.sentry.postProcessForwardIssuePlatform.affinity }}
 {{ toYaml .Values.sentry.postProcessForwardIssuePlatform.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.postProcessForwardIssuePlatform.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.sentry.postProcessForwardIssuePlatform.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.sentry.postProcessForwardIssuePlatform.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.postProcessForwardIssuePlatform.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.sentry.postProcessForwardIssuePlatform.tolerations) }}
       tolerations:
-{{ toYaml .Values.sentry.postProcessForwardIssuePlatform.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.sentry.postProcessForwardIssuePlatform.topologySpreadConstraints }}
       topologySpreadConstraints:

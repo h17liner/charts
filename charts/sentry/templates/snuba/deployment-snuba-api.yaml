@@ -38,13 +38,13 @@ spec:
       {{- if .Values.snuba.api.affinity }}
 {{ toYaml .Values.snuba.api.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.api.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.snuba.api.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.snuba.api.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.api.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.snuba.api.tolerations) }}
       tolerations:
-{{ toYaml .Values.snuba.api.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.snuba.api.topologySpreadConstraints }}
       topologySpreadConstraints:

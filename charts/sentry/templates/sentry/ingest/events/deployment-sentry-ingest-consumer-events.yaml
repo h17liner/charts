@@ -48,13 +48,13 @@ spec:
       {{- if .Values.sentry.ingestConsumerEvents.affinity }}
 {{ toYaml .Values.sentry.ingestConsumerEvents.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.ingestConsumerEvents.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.sentry.ingestConsumerEvents.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.sentry.ingestConsumerEvents.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.ingestConsumerEvents.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.sentry.ingestConsumerEvents.tolerations) }}
       tolerations:
-{{ toYaml .Values.sentry.ingestConsumerEvents.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.sentry.ingestConsumerEvents.topologySpreadConstraints }}
       topologySpreadConstraints:

@@ -46,13 +46,13 @@ spec:
       {{- if .Values.sentry.genericMetricsConsumer.affinity }}
 {{ toYaml .Values.sentry.genericMetricsConsumer.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.genericMetricsConsumer.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.sentry.genericMetricsConsumer.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.sentry.genericMetricsConsumer.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.sentry.genericMetricsConsumer.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.sentry.genericMetricsConsumer.tolerations) }}
       tolerations:
-{{ toYaml .Values.sentry.genericMetricsConsumer.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.sentry.genericMetricsConsumer.topologySpreadConstraints }}
       topologySpreadConstraints:

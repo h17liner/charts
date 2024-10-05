@@ -45,13 +45,13 @@ spec:
       {{- if .Values.snuba.profilingProfilesConsumer.affinity }}
 {{ toYaml .Values.snuba.profilingProfilesConsumer.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.profilingProfilesConsumer.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.snuba.profilingProfilesConsumer.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.snuba.profilingProfilesConsumer.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.profilingProfilesConsumer.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.snuba.profilingProfilesConsumer.tolerations) }}
       tolerations:
-{{ toYaml .Values.snuba.profilingProfilesConsumer.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.snuba.profilingProfilesConsumer.topologySpreadConstraints }}
       topologySpreadConstraints:

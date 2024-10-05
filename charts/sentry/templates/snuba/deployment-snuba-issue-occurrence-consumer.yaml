@@ -45,13 +45,13 @@ spec:
       {{- if .Values.snuba.issueOccurrenceConsumer.affinity }}
 {{ toYaml .Values.snuba.issueOccurrenceConsumer.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.issueOccurrenceConsumer.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.snuba.issueOccurrenceConsumer.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.snuba.issueOccurrenceConsumer.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.snuba.issueOccurrenceConsumer.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.snuba.issueOccurrenceConsumer.tolerations) }}
       tolerations:
-{{ toYaml .Values.snuba.issueOccurrenceConsumer.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.snuba.issueOccurrenceConsumer.topologySpreadConstraints }}
       topologySpreadConstraints:

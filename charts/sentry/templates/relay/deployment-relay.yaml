@@ -53,13 +53,13 @@ spec:
       {{- if .Values.relay.affinity }}
 {{ toYaml .Values.relay.affinity | indent 8 }}
       {{- end }}
-      {{- if .Values.relay.nodeSelector }}
+      {{- if $nodeSelector := (default .Values.global.nodeSelector .Values.relay.nodeSelector) }}
       nodeSelector:
-{{ toYaml .Values.relay.nodeSelector | indent 8 }}
+{{ toYaml $nodeSelector | indent 8 }}
       {{- end }}
-      {{- if .Values.relay.tolerations }}
+      {{- if $tolerations := (default .Values.global.tolerations .Values.relay.tolerations) }}
       tolerations:
-{{ toYaml .Values.relay.tolerations | indent 8 }}
+{{ toYaml $tolerations | indent 8 }}
       {{- end }}
       {{- if .Values.relay.topologySpreadConstraints }}
       topologySpreadConstraints:
